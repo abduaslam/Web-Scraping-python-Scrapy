@@ -17,7 +17,7 @@ class BookSpider(scrapy.Spider):
             print(title)
             price=book.css("p.price_color::text").get()
             print(price)
-            availability=book.css("p.instock i::text").get()
+            availability=book.css("p.instock.availability::text").get()
             print(availability)
             yield{
                 "title":title,
