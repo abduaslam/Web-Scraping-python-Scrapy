@@ -7,7 +7,7 @@ class BookSpider(scrapy.Spider):
     # get Response
     def parse(self,response):
         print("This our response")
-        # use css selector
+        # use css selector(Tag name)
         print(response.css("h3 a::text").get())
         # Select all books
         print ("all books info")
@@ -17,11 +17,13 @@ class BookSpider(scrapy.Spider):
             print(title)
             price=book.css("p.price_color::text").get()
             print(price)
-            availability=book.css("p.instock.availability::text").get()
+            availability=book.css("p.instock.availability").xpath("normalize-space()").get()
+        
             print(availability)
             yield{
                 "title":title,
                 "price":price,
-                "availability":availability
+                "availability":availability,
+               
 
     }
