@@ -21,11 +21,29 @@ class BookSpider(scrapy.Spider):
 
         # create object from our Items
         bookitem=booksItem()
+        print(["Thes Scrapy Items "])
         # Select all books
         print ("all books info")
         ebooks=response.css("article")
         for book in ebooks :
             bookitem['title']=book.css("a::text").get()
             bookitem['price']=book.css("p.price_color::text").get()
+            print(bookitem['price'])
             bookitem['availability']=book.css("p.instock.availability").xpath("normalize-space()").get()
             yield bookitem ;
+       
+
+           
+        print(["Thes Scrapy Without usig scrapy items "])
+        # Select all books
+        print ("all books info")
+        ebooks=response.css("article")
+        for book in ebooks :
+            title=book.css("a::text").get()
+            print(title)
+            price=book.css("p.price_color::text").get()
+            availability=book.css("p.instock.availability").xpath("normalize-space()").get()
+            yield {
+                "title":title,
+                "Price":price ,
+                 "availability" :availability          }
