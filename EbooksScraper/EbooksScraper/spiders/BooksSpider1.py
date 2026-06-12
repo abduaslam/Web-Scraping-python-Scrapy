@@ -1,6 +1,7 @@
 import scrapy
 # import our Item class 
 from EbooksScraper.items import booksItem
+from EbooksScraper.items import Price_Int
 # Create spider
 class BookSpider(scrapy.Spider):
     name="books"
@@ -18,22 +19,7 @@ class BookSpider(scrapy.Spider):
         print("tag name:",response.xpath("//h3/a/text()").get())
         print("Atrribute:",response.xpath("//p[@class='price_color']/text()").get())
         print("avialbility :", response.xpath("//p[@class='instock availability']/text()").get())
-
-        # create object from our Items
-        bookitem=booksItem()
-        print(["Thes Scrapy Items "])
-        # Select all books
-        print ("all books info")
-        ebooks=response.css("article")
-        for book in ebooks :
-            bookitem['title']=book.css("a::text").get()
-            bookitem['price']=book.css("p.price_color::text").get()
-            print(bookitem['price'])
-            bookitem['availability']=book.css("p.instock.availability").xpath("normalize-space()").get()
-            yield bookitem ;
-       
-
-           
+        # ##########################################################################
         print(["Thes Scrapy Without usig scrapy items "])
         # Select all books
         print ("all books info")
@@ -47,3 +33,21 @@ class BookSpider(scrapy.Spider):
                 "title":title,
                 "Price":price ,
                  "availability" :availability          }
+        # #######################################################################
+
+        # create object from our Items
+        bookitem=booksItem()
+        print(["Thes Scrapy Items "])
+        # Select all books
+        print ("all books info")
+        ebooks=response.css("article")
+        for book in ebooks :
+            bookitem['title']=book.css("a::text").get()
+            bookitem['price']=Price_Int(book.css("p.price_color::text").get())
+            print(bookitem['price'])
+            bookitem['availability']=book.css("p.instock.availability").xpath("normalize-space()").get()
+            yield bookitem ;
+       
+
+           
+      
