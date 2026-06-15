@@ -2,6 +2,7 @@ import scrapy
 # import our Item class 
 from EbooksScraper.items import booksItem
 from EbooksScraper.items import Price_Int
+from scrapy.loader import ItemLoader 
 # Create spider
 class BookSpider(scrapy.Spider):
     name="books"
@@ -47,6 +48,9 @@ class BookSpider(scrapy.Spider):
             print(bookitem['price'])
             bookitem['availability']=book.css("p.instock.availability").xpath("normalize-space()").get()
             yield bookitem ;
+            # #####################################################################
+            #Loading Items with Scrapy ItemLoaders
+
        
 
            
