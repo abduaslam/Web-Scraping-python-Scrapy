@@ -54,9 +54,9 @@ class BookSpider(scrapy.Spider):
         for book in ebooks :
             loader=ItemLoader(item=bookitem())
             loader.add_value('title',book.css("a::text").get())
-            loader.add_value('price',Price_Int(book.css("p.price_color::text").get()))
+            loader.add_value('price',(book.css("p.price_color::text").get()))
             loader.add_value('availability',book.css("p.instock.availability").xpath("normalize-space()").get())
-            yield bookitem ;
+            yield loader.load_item() ;
 
            
       
