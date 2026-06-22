@@ -8,6 +8,7 @@ class BookSpider(scrapy.Spider):
     name="books"
     # send request
     start_urls=["https://books.toscrape.com/"]
+    cols=['title','price']
     # get Response
     def parse(self,response):
 
