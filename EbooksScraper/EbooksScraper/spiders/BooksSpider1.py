@@ -38,25 +38,25 @@ class BookSpider(scrapy.Spider):
 
         # create object from our Items
         bookitem=booksItem()
-        # print(["Thes Scrapy Items "])
-        # # Select all books
-        # print ("all books info")
-        # ebooks=response.css("article")
-        # for book in ebooks :
-        #     bookitem['title']=book.css("a::text").get()
-        #     bookitem['price']=Price_Int(book.css("p.price_color::text").get())
-        #     print(bookitem['price'])
-        #     bookitem['availability']=book.css("p.instock.availability").xpath("normalize-space()").get()
-        #     yield bookitem ;
-            # #####################################################################
-            #Loading Items with Scrapy ItemLoaders
-        print("[Loading Items with Scrapy ItemLoaders]")   
+        print(["Thes Scrapy Items "])
+        # Select all books
+        print ("all books info")
+        ebooks=response.css("article")
         for book in ebooks :
-            loader=ItemLoader(item=bookitem)
-            loader.add_value('title',book.css("a::text").get())
-            loader.add_value('price',(book.css("p.price_color::text").get()))
-            loader.add_value('availability',book.css("p.instock.availability").xpath("normalize-space()").get())
-            yield loader.load_item() ;
+            bookitem['title']=book.css("a::text").get()
+            bookitem['price']=Price_Int(book.css("p.price_color::text").get())
+            print(bookitem['price'])
+            bookitem['availability']=book.css("p.instock.availability").xpath("normalize-space()").get()
+            yield bookitem ;
+            # #####################################################################
+        #     #Loading Items with Scrapy ItemLoaders
+        # print("[Loading Items with Scrapy ItemLoaders]")   
+        # for book in ebooks :
+        #     loader=ItemLoader(item=bookitem)
+        #     loader.add_value('title',book.css("a::text").get())
+        #     loader.add_value('price',(book.css("p.price_color::text").get()))
+        #     loader.add_value('availability',book.css("p.instock.availability").xpath("normalize-space()").get())
+        #     yield loader.load_item() ;
 
            
       
